@@ -1,0 +1,35 @@
+.home-page {
+  margin-top: 50px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+}
+
+.address-btn {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 8px;
+}
+
+.address-form {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .home-page {
+    max-width: 90%;
+  }
+
+  .address-btn {
+    font-size: 16px;
+  }
+}

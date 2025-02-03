@@ -1,0 +1,122 @@
+.food-blog-container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+.blog-title {
+    font-size: 32px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.intro-text {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 30px;
+}
+.featured-recipes h2, .restaurant-reviews h2, .food-tips h2, .trending-food h2, .user-interaction h2 {
+    color: #007bff;
+    font-size: 24px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #007bff;
+    display: inline-block;
+}
+
+.recipe-card {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+.recipe-card img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.recipe-card h4 {
+    color: #343a40;
+    font-weight: bold;
+}
+
+.recipe-card button {
+    margin-top: 10px;
+}
+/* Restaurant Reviews */
+.restaurant-reviews ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.restaurant-reviews li {
+    background: #f1f1f1;
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+.food-tips ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+.food-tips li {
+    margin-bottom: 5px;
+}
+.user-interaction textarea {
+    width: 100%;
+    height: 100px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.user-interaction button {
+    width: 100%;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 6px;
+    margin-top: 10px;
+}
+
+
+.btn-success {
+    background-color: #28a745;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    color: #333;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+}
+@media (max-width: 768px) {
+    .recipe-card {
+        margin-bottom: 15px;
+    }
+
+    .user-interaction textarea {
+        height: 80px;
+    }
+
+    .featured-recipes h2, 
+    .restaurant-reviews h2, 
+    .food-tips h2, 
+    .trending-food h2, 
+    .user-interaction h2 {
+        font-size: 20px;
+    }
+}
