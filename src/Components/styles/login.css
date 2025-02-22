@@ -1,0 +1,32 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+  
+  .input-group {
+    display: ac;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  
+  .user-card {
+    padding: 16px;
+    width: 300px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .not-found {
+    color: red;
+    font-weight: bold;
+  }
+  

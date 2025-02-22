@@ -1,0 +1,40 @@
+.signout-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #222;
+    color: white;
+  }
+  
+  .signout-card {
+    text-align: center;
+    padding: 30px;
+    border-radius: 10px;
+    background: #333;
+    box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+  }
+  
+  .signout-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: gold;
+    margin-bottom: 10px;
+  }
+  
+  .signout-message {
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+  
+  .spinner-border {
+    width: 3rem;
+    height: 3rem;
+  }
+  
+  .redirect-message {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #bbb;
+  }
+  

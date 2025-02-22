@@ -1,0 +1,79 @@
+.categories-section {
+  background-color: white;
+  color: black;
+  padding: 80px;
+  text-align: center;
+}
+
+.category-card {
+  background-color: rgb(14, 14, 14);
+  color: white;
+  border: 1px solid #444;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 15px;
+}
+
+.category-card:hover {
+  transform: scale(1.08);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.7);
+}
+
+.category-card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.category-card .card-body {
+  background-color: black;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  padding: 15px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: white;
+}
+
+.category-card .card-title, .category-card .card-text {
+  color: white;
+}
+
+.explore-btn {
+  background-color: #f1c40f;
+  color: black;
+  font-weight: bold;
+  border-radius: 25px;
+  padding: 12px 25px;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  box-shadow: 0px 3px 10px rgba(255, 204, 0, 0.5);
+  align-self: center;
+}
+
+.explore-btn:hover {
+  background-color: #ffcc00;
+  color: black;
+  box-shadow: 0px 4px 12px rgba(255, 204, 0, 0.7);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 20px;
+}
+
+.col {
+  display: flex;
+  flex: 1 1 30%;
+  justify-content: center;
+}

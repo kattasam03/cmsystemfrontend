@@ -30,7 +30,7 @@ export const registerUser = async (userData) => {
 
 export const resetPassword = async (userData) => {
     try {
-        const response = await axios.post("http://localhost:9999/api/cms/login/post/resetpassword", userData);
+        const response = await axios.post("http://localhost:9999/api/cms/login/post/reset-password", userData);
         return response.data;
     } catch (error) {
         throw error.response?.data?.message || "Something went wrong";

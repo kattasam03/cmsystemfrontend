@@ -1,0 +1,71 @@
+.front-page {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    z-index: 9999;
+  }
+  
+  .paint-text {
+    font-size: 3.5rem;
+    font-family: "Brush Script MT", cursive;
+    font-weight: bold;
+    color: white;
+    text-shadow: 0px 0px 20px rgba(255, 255, 255, 0.9);
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.8);
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transition: opacity 2s ease-in-out, transform 2.5s ease-in-out;
+  }
+  
+  .paint-text.animate {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  
+  .caption {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: rgb(227, 177, 13);
+    position: absolute;
+    top: 55%;
+    left: 100%;
+    opacity: 0;
+    transition: opacity 2s ease-in-out, left 2.5s ease-in-out;
+  }
+  
+  .caption-animate {
+    opacity: 1;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .line {
+    width: 0;
+    height: 4px;
+    background: linear-gradient(to right, transparent, white, transparent);
+    transition: width 2s ease-in-out;
+  }
+  
+  .paint-text.animate .line {
+    width: 150px;
+  }
+  
+  .left {
+    margin-right: 15px;
+  }
+  
+  .right {
+    margin-left: 15px;
+  }
+  

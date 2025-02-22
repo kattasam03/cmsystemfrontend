@@ -1,0 +1,51 @@
+.feedback-card {
+  position: fixed;
+  top: 50%;
+  right: -500px;
+  transform: translateY(-50%);
+  transition: right 0.5s ease-in-out;
+  width: 450px;
+  max-width: 95%;
+}
+
+.feedback-card.show {
+  right: 50%;
+  transform: translate(50%, -50%);
+}
+
+.feedback-card-content {
+  width: 100%;
+  padding: 2rem;
+  border-radius: 12px;
+  background: white;
+}
+
+.thank-you-message {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.5rem;
+  color: #28a745;
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.star {
+  font-size: 2.5rem;
+  cursor: pointer;
+  color: lightgray;
+}
+
+.star.selected {
+  color: gold;
+}
+
+.open-btn {
+  position: fixed;
+  top: 50%;
+  right: 20px;
+  z-index: 1000;
+}

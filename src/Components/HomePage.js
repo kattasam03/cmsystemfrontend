@@ -1,256 +1,201 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Form, Button, Alert } from "react-bootstrap";
+import { Form, Button, Card, Carousel, Container, Row, Col } from "react-bootstrap";
 import { GeoAltFill } from "react-bootstrap-icons";
 import "./styles/HomePage.css";
+import { useNavigate } from "react-router-dom";
+
+import drink1 from "../Images/drinks1.jpg";
+import drink2 from "../Images/drinks2.jpg";
+import drink3 from "../Images/drinks3.jpg";
+
+import tiffin1 from "../Images/tiffinpic1.jpg";
+import tiffin2 from "../Images/tiffinpic2.jpg";
+import tiffin3 from "../Images/tiffinpic3.jpg";
+
+import burger1 from "../Images/burger1.jpg";
+import burger2 from "../Images/burger2.jpg";
+import burger3 from "../Images/burger3.jpg";
+
+import biryani1 from "../Images/biryani1.jpg";
+import biryani2 from "../Images/biryani2.jpg";
+import biryani3 from "../Images/biryani3.jpg";
+
+import CategoriesSection from "./CategoriesSection";
+import OrderTable from "./OrderTable";
+
 
 function HomePage() {
   const [showAddress, setShowAddress] = useState(false);
+  const [showCategories, setShowCategories] = useState(false);
+  const [showOrders, setShowOrders] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     userstate: "",
     usercity: "",
     userstreet: "",
     userzipcode: "",
   });
-  const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState("");
-  
-  // Login-related state variables
-  const [username, setUsername] = useState("");
-  const [loginPassword, setLoginPassword] = useState("");
 
-  // Handle form input changes
+  const handleSignOut = () => {
+    navigate("/signout");
+  };
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handle login
-  const handleLogin = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(""); // Reset previous errors
+    setError("");
+    setSubmitted(false);
+    const userId = localStorage.getItem("userId");
+    if (!userId) {
+      setError("User not logged in. Please log in first.");
+      return;
+    }
     try {
-      const response = await axios.post(
-        "http://localhost:9999/api/cms/login/post/userslogin",
-        {
-          username,
-          loginPassword,
-        }
-      );
+      const response = await axios.get(`http://localhost:9999/api/cms/address/${userId}`);
+      const existingAddress = response.data;
 
-      if (response.status === 200) {
-        console.log("Login successful:", response.data);
-        localStorage.setItem("userId", response.data); // Store user ID
-        // Redirect to homepage (if necessary)
+      if (existingAddress) {
+        await axios.put(`http://localhost:9999/api/cms/address/${userId}`, {
+          ...formData,
+          userLogin: { id: parseInt(userId) },
+        });
+      } else {
+        await axios.post("http://localhost:9999/api/cms/address", {
+          ...formData,
+          userLogin: { id: parseInt(userId) },
+        });
       }
+
+      setSubmitted(true);
+      setFormData({ userstate: "", usercity: "", userstreet: "", userzipcode: "" });
+
+      setTimeout(() => {
+        setSubmitted(false);
+      }, 3000);
     } catch (err) {
-      console.error("Login error:", err.response?.data || err.message);
-      setError("Invalid credentials. Please try again.");
+      setError("An unexpected error occurred. Please try again.");
     }
   };
+  
 
-  // Handle address submission
+  const handleToggleCategories = () => {
+    setShowCategories(!showCategories);
+    setShowAddress(false);
+  };
 
-// Handle address submission
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setError(""); 
-
-  const userId = localStorage.getItem("userId");
-  if (!userId || userId === "null" || userId === "undefined") {
-    setError("User not logged in. Please log in first.");
-    return;
-  }
-
-  try {
-    // Check if the user already has an address
-    const existingAddressResponse = await axios.get(`http://localhost:9999/api/cms/address/${userId}`);
-    const existingAddress = existingAddressResponse.data;
-
-    if (existingAddress) {
-      // If the address exists, update it
-      const updateResponse = await axios.put(`http://localhost:9999/api/cms/address/${userId}`, {
-        ...formData,
-        userLogin: { id: parseInt(userId) },
-      });
-      if (updateResponse.status === 200) {
-        setSubmitted(true);
-        setShowAddress(false);
-        setFormData({ userstate: "", usercity: "", userstreet: "", userzipcode: "" });
-
-        // Delay hiding the login form
-        setTimeout(() => {
-          setUsername("");  // Clear username
-          setLoginPassword("");  // Clear password
-          // Optionally, you can also hide the login section with another state if needed.
-        }, 500); // 0.5-second delay
-      } else {
-        setError("Failed to update address. Please try again.");
-      }
-    } else {
-      // If no address exists, insert a new one
-      const createResponse = await axios.post("http://localhost:9999/api/cms/address", {
-        ...formData,
-        userLogin: { id: parseInt(userId) },
-      });
-      if (createResponse.status === 201) {
-        setSubmitted(true);
-        setShowAddress(false);
-        setFormData({ userstate: "", usercity: "", userstreet: "", userzipcode: "" });
-
-        // Delay hiding the login form
-        setTimeout(() => {
-          setUsername("");  // Clear username
-          setLoginPassword("");  // Clear password
-          // Optionally, you can also hide the login section with another state if needed.
-        }, 500); // 0.5-second delay
-      } else {
-        setError("Failed to submit address. Please try again.");
-      }
-    }
-  } catch (err) {
-    console.error("Error submitting:", err);
-    setError("An unexpected error occurred. Please try again.");
-  }
-};
-
-
-
-  // Hide success message after 3 seconds
-  useEffect(() => {
-    if (submitted) {
-      const timer = setTimeout(() => setSubmitted(false), 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [submitted]);
-
+  const handleShowOrders = () => {
+    setShowOrders(!showOrders);
+    setShowCategories(false);
+    setShowAddress(false);
+  };
   return (
-    <div className="home-page container text-center">
-      <h1>Welcome to the Restaurant!</h1>
-      <p>Explore our menu and enjoy delicious meals!</p>
-
-      {/* Login Form */}
-      <div className="login-form mt-4">
-        <h3>Login</h3>
-        <Form onSubmit={handleLogin}>
-          <Form.Group className="mb-3">
-            <Form.Label>Username</Form.Label>
-            <Form.Control
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder="Enter your username"
-              required
-            />
-          </Form.Group>
-
-          <Form.Group className="mb-3">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              type="password"
-              value={loginPassword}
-              onChange={(e) => setLoginPassword(e.target.value)}
-              placeholder="Enter your password"
-              required
-            />
-          </Form.Group>
-
-          <Button variant="primary" type="submit" className="w-100">
-            Login
-          </Button>
-        </Form>
-
-        {error && (
-          <Alert variant="danger" className="mt-3">
-            {error}
-          </Alert>
-        )}
+    <div className="home-container">
+      {/* Buttons Group */}
+      <div className="button-group">
+        <Button className="address-btn" onClick={() => setShowAddress(!showAddress)}>
+          <GeoAltFill className="me-2" /> Address
+        </Button>
+        <Button className="category-btn" onClick={handleToggleCategories}>
+          Categories
+        </Button>
+        <Button className="order-btn" onClick={handleShowOrders}>
+          My Orders
+        </Button>
+        <Button className="signout-btn" onClick={handleSignOut}>
+          Sign Out
+        </Button>
       </div>
 
-      {/* Address Button */}
-      <Button
-        variant="primary"
-        className="address-btn d-flex align-items-center justify-content-center mx-auto"
-        onClick={() => {
-          setShowAddress(!showAddress);
-          setSubmitted(false); // Reset success message when reopening form
-        }}
-      >
-        <GeoAltFill className="me-2" /> Address
-      </Button>
-
       {/* Address Form */}
+ 
       {showAddress && (
-        <div className="address-form mt-3">
-          <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3">
-              <Form.Label>State</Form.Label>
-              <Form.Control
-                type="text"
-                name="userstate"
-                value={formData.userstate}
-                onChange={handleChange}
-                placeholder="Enter your state"
-                required
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3">
-              <Form.Label>City</Form.Label>
-              <Form.Control
-                type="text"
-                name="usercity"
-                value={formData.usercity}
-                onChange={handleChange}
-                placeholder="Enter your city"
-                required
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3">
-              <Form.Label>Street</Form.Label>
-              <Form.Control
-                type="text"
-                name="userstreet"
-                value={formData.userstreet}
-                onChange={handleChange}
-                placeholder="Enter your street"
-                required
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3">
-              <Form.Label>Zipcode</Form.Label>
-              <Form.Control
-                type="text"
-                name="userzipcode"
-                value={formData.userzipcode}
-                onChange={handleChange}
-                placeholder="Enter your zipcode"
-                required
-              />
-            </Form.Group>
-
-            <Button variant="success" type="submit" className="w-100">
-              Submit Address
-            </Button>
-          </Form>
+        <div className="address-form slide-in">
+          <Card className="black-card">
+            <Card.Body>
+              <Form onSubmit={handleSubmit}>
+                <Form.Group>
+                  <Form.Label>State</Form.Label>
+                  <Form.Control type="text" name="userstate" value={formData.userstate} onChange={handleChange} />
+                </Form.Group>
+                <Form.Group>
+                  <Form.Label>City</Form.Label>
+                  <Form.Control type="text" name="usercity" value={formData.usercity} onChange={handleChange} />
+                </Form.Group>
+                <Form.Group>
+                  <Form.Label>Street</Form.Label>
+                  <Form.Control type="text" name="userstreet" value={formData.userstreet} onChange={handleChange} />
+                </Form.Group>
+                <Form.Group>
+                  <Form.Label>Zipcode</Form.Label>
+                  <Form.Control type="text" name="userzipcode" value={formData.userzipcode} onChange={handleChange} />
+                </Form.Group>
+                <Button type="submit" className="gold-button">Submit</Button>
+              </Form>
+              {submitted && <div className="success-message">Address successfully submitted!</div>}
+            </Card.Body>
+          </Card>
         </div>
       )}
 
-      {/* Success Message */}
-      {submitted && (
-        <Alert variant="success" className="mt-3">
-          Address submitted successfully!
-        </Alert>
-      )}
 
-      {/* Error Message */}
-      {error && (
-        <Alert variant="danger" className="mt-3">
-          {error}
-        </Alert>
-      )}
+      {/* Categories Section */}
+      {showCategories && <CategoriesSection />}
+      
+      {/* Order Table */}
+      {showOrders && <OrderTable />}
+
+      {/* Carousel Section */}
+{!showCategories && !showAddress && !showOrders && (
+  <Container className="carousel-grid">
+    <Row>
+      <Col md={6}>
+        <Carousel className="custom-carousel">
+          {[drink1, drink2, drink3].map((img, index) => (
+            <Carousel.Item key={index}>
+              <img className="carousel-image" src={img} alt="Drinks" />
+            </Carousel.Item>
+          ))}
+        </Carousel>
+      </Col>
+      <Col md={6}>
+        <Carousel className="custom-carousel">
+          {[tiffin1, tiffin2, tiffin3].map((img, index) => (
+            <Carousel.Item key={index}>
+              <img className="carousel-image" src={img} alt="Tiffin" />
+            </Carousel.Item>
+          ))}
+        </Carousel>
+      </Col>
+      <Col md={6}>
+        <Carousel className="custom-carousel">
+          {[burger1, burger2, burger3].map((img, index) => (
+            <Carousel.Item key={index}>
+              <img className="carousel-image" src={img} alt="Burgers" />
+            </Carousel.Item>
+          ))}
+        </Carousel>
+      </Col>
+      <Col md={6}>
+        <Carousel className="custom-carousel">
+          {[biryani1, biryani2, biryani3].map((img, index) => (
+            <Carousel.Item key={index}>
+              <img className="carousel-image" src={img} alt="Biryani" />
+            </Carousel.Item>
+          ))}
+        </Carousel>
+      </Col>
+    </Row>
+  </Container>
+)}
+
     </div>
   );
 }

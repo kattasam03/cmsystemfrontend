@@ -1,0 +1,205 @@
+/* Page Background */
+body {
+    background-color: white; /* Ensures full page has white background */
+    font-family: Arial, sans-serif;
+}
+
+/* Center the heading */
+h2.text-center {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: black;
+}
+/* Orders Container */
+.orders-container {
+    margin: 40px auto;
+    width: 50%;
+    background: #1e1e1e;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(226, 31, 31, 0.2);
+    text-align: center;
+    height: 700px;
+
+}
+.orders-container h2 {
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 15px;
+}
+
+/* Order Item Styling */
+.order-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: 1px solid #444;
+    gap: 15px;
+    background: #2c2c2c;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    height: 200px;
+}
+.order-image {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid #fff;
+}
+
+.order-details {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    font-size: 14px;
+}
+
+.order-price {
+    font-size: 16px;
+    font-weight: bold;
+    color: #28a745;
+}
+
+/* Quantity Control */
+.quantity-control {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.quantity-control button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 16px; /* Increased font size for visibility */
+    border-radius: 4px;
+    transition: background 0.3s;
+    height: 28px; /* Slightly increased height */
+    line-height: 24px; /* Ensures text is vertically centered */
+    text-align: center; /* Aligns text properly */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px; /* Prevents shrinking */
+}
+
+.quantity-control button:hover {
+    background: #0056b3;
+}
+
+.quantity-control button:hover {
+    background: #0056b3;
+}
+
+.quantity-control button:disabled {
+    background: #555;
+    cursor: not-allowed;
+}
+
+/* Remove Button */
+.remove-btn {
+    background: red;
+    color: white;
+    padding: 4px 8px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.3s;
+    font-size: 14px;
+}
+
+.remove-btn:hover {
+    background: darkred;
+}
+
+/* Card Styling */
+.card {
+    background-color: black !important;
+    color: white !important;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
+}
+/* Image inside the card */
+.card-img-top {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+}
+/* Card Title & Text */
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: white !important;
+}
+.card-text {
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: white !important;
+}
+/* Add to Cart Button */
+.card .btn-success {
+    background-color: gold;
+    border: none;
+    font-size: 14px;
+    padding: 6px 12px;
+    width: 100%;
+    border-radius: 5px;
+    transition: background-color 0.2s, transform 0.2s;
+    color: white;
+    font-weight: bold;
+}
+
+.card .btn-success:hover {
+    background-color: #e6c200;
+    transform: scale(1.05);
+}
+
+
+/* Grid layout for food items */
+.row {
+    display: flex;
+    justify-content: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .orders-container {
+        width: 80%;
+        padding: 20px;
+    }
+
+    .order-item {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .quantity-control {
+        gap: 5px;
+    }
+
+    .quantity-control button {
+        padding: 4px 6px;
+        font-size: 12px;
+    }
+
+    .btn-success {
+        font-size: 12px;
+        padding: 5px 10px;
+    }
+}

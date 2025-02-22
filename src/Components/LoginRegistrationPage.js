@@ -27,55 +27,66 @@ const LoginRegistrationPage = ({ onAuthSuccess }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setMessage("");
-        
+    
         try {
             if (view === "login") {
-                // Handle login logic
-                await loginUser({ username: form.username, loginPassword: form.loginPassword });
+                const response = await loginUser({ username: form.username, loginPassword: form.loginPassword });
+                console.log("Login Response:", response);
+    
                 setMessage("Login successful!");
                 setTimeout(() => {
                     onAuthSuccess();
-                    navigate("/home");
+                    navigate("/home"); // Redirect to home page
                 }, 1000);
-            } else if (view === "register") {
+            } 
+            else if (view === "register") {
                 if (form.loginPassword !== form.confirmPassword) {
                     setMessage("Passwords do not match!");
                     return;
                 }
-            
-                // Make sure loginConfirmPassword is being sent
-                await registerUser({
+    
+                const response = await registerUser({
                     username: form.username,
                     email: form.email,
                     loginPassword: form.loginPassword,
-                    loginConfirmPassword: form.confirmPassword,  // This was missing
+                    loginConfirmPassword: form.confirmPassword,
                     loginType: form.loginType,
                     phoneNo: form.phoneNo,
                     roles: form.roles,
                 });
+    
+                console.log("Registration Response:", response);
                 setMessage("Registration successful!");
                 setTimeout(() => {
-                    onAuthSuccess();
-                    navigate("/home");
+                    navigate("/home"); // Redirect to home page after registration
                 }, 1000);
-            }
-             else {
-                // Handle password reset logic
+            } 
+            else if (view === "forgot") { 
                 if (form.newPassword !== form.confirmPassword) {
                     setMessage("Passwords do not match!");
                     return;
                 }
-                await resetPassword({ email: form.email, username: form.username, newPassword: form.newPassword });
+    
+                const response = await resetPassword({
+                    email: form.email,
+                    username: form.username, 
+                    newPassword: form.newPassword
+                });
+    
+                console.log("Password Reset Response:", response);
                 setMessage("Password reset successful!");
+                setTimeout(() => {
+                    setView("login"); // Switch back to login page
+                }, 1000);
             }
         } catch (error) {
-            setMessage("Error: " + (error.response?.data?.message || "Something went wrong"));
+            console.error("Error Details:", error);
+            setMessage("Error: " + (error.response?.data || "Something went wrong"));
         }
     };
-
     return (
-        <div className="container-centered">
-            <div className="auth-container">
+                <div className="container-centered">
+                <div className={`auth-container ${view === "register" ? "register" : ""}`}>
                 <h2 className="text-center">
                     {view === "login" ? "Login" : view === "register" ? "Register" : "Reset Password"}
                 </h2>
